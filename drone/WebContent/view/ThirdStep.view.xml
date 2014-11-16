@@ -1,6 +1,6 @@
 <core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
 		controllerName="drone.view.ThirdStep" xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="{i18n>TITLE}" showNavButton="true">
+	<Page title="{i18n>TITLE}" showNavButton="true" navButtonPress="toSecondStep">
 		<content>
 	
 		</content>

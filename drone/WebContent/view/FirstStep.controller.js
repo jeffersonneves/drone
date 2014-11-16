@@ -1,7 +1,7 @@
 sap.ui.controller("drone.view.FirstStep", {
 
 	toSecondStep: function (oEvent){
-		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {id:"1"});
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {area:"1"});
 	},
 	
 /**
@@ -9,18 +9,18 @@ sap.ui.controller("drone.view.FirstStep", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf drone.MainView
 */
-	onInit: function() {
-
-	},
+//	onInit: function() {
+//
+//	},
 
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 * (NOT before the first rendering! onInit() is used for that one!).
 * @memberOf drone.MainView
 */
-//	onBeforeRendering: function() {
-//
-//	},
+	onBeforeRendering: function() {
+
+	},
 
 /**
 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.

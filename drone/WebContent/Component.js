@@ -23,13 +23,14 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 				viewType : "XML",
 				viewPath : "drone.view",
 				targetAggregation : "pages",
-				targetControl : "appContent"
+				targetControl : "appContent",
+				clearTarget : false
 			},
 			// The route configurations
 			routes: [
 				{ name: "first",  view: "FirstStep",  pattern: ""	},
-				{ name: "second", view: "SecondStep", pattern: "area/{id}" },
-				{ name: "third",  view: "ThirdStep",  pattern: "plant/{id}" }
+				{ name: "second", view: "SecondStep", pattern: "area/{area}" },
+				{ name: "third",  view: "ThirdStep",  pattern: "area/{area}/plant/{plant}" }
 			]
 		}
 	},
@@ -69,6 +70,14 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 		this.setModel(deviceModel, "device");
 
 		this.getRouter().initialize();
+		
+		this.getRouter().attachRouteMatched(function (oEvent){
+			var params = oEvent.getParameters();
+			
+			params.view.addCustomData(new sap.ui.core.CustomData({key:"arguments", value: params.arguments}));
+			
+			params.targetControl.to(params.view);
+		});
 
 	}
 });

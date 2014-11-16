@@ -1,5 +1,9 @@
 sap.ui.controller("drone.view.ThirdStep", {
 
+	toSecondStep: function (oEvent){
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {area:"1"});
+	},
+
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -14,9 +18,9 @@ sap.ui.controller("drone.view.ThirdStep", {
 * (NOT before the first rendering! onInit() is used for that one!).
 * @memberOf view.ThirdStep
 */
-//	onBeforeRendering: function() {
-//
-//	},
+	onBeforeRendering: function() {
+
+	},
 
 /**
 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
