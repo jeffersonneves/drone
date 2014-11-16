@@ -1,7 +1,7 @@
-sap.ui.controller("drone.view.MainView", {
+sap.ui.controller("drone.view.FirstStep", {
 
 	toSecondStep: function (oEvent){
-		alert("Pra que serve esse butão?");
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {id:"1"});
 	},
 	
 /**
@@ -10,7 +10,7 @@ sap.ui.controller("drone.view.MainView", {
 * @memberOf drone.MainView
 */
 	onInit: function() {
-		
+
 	},
 
 /**

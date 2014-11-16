@@ -6,22 +6,21 @@
 		<title>Innoweek Drone Challenge App</title>
 	
 		<script id="sap-ui-bootstrap" src="resources/sap-ui-core.js"
-			data-sap-ui-libs="sap.m"
+			data-sap-ui-libs="sap.m,sap.ui.core"
 			data-sap-ui-theme="sap_bluecrystal"
 			data-sap-ui-xx-bindingSyntax="complex"
 			data-sap-ui-resourceroots='{"drone": "./"}'>
 		</script>
 	
 		<script>
-			sap.ui.getCore().attachInit(function() {
-				new sap.m.Shell({
-					app : new sap.ui.core.ComponentContainer({
-						height : "100%",
-						name : "drone"
-					})
-				}).placeAt("content");
+			sap.ui.getCore().attachInitEvent(function() {
+				var oComponentContainer = new sap.ui.core.ComponentContainer({
+		            height : "100%",
+					name : "drone"
+				});
+				oComponentContainer.placeAt("content");
 			});
 		</script>
 	</head>
-	<body class="sapUiBody" id="content" />
+	<body class="sapUiBody" id="content" role="application" />
 </html>

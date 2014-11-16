@@ -9,7 +9,7 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 			libs : [ "sap.m", "sap.ui.layout" ],
 			components : []
 		},
-		rootView : "drone.view.MainView",
+		rootView : "drone.App",
 		config : {
 			resourceBundle : "i18n/strbundle.properties",
 			serviceConfig : {
@@ -22,9 +22,24 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 			config : {
 				viewType : "XML",
 				viewPath : "drone.view",
+				targetAggregation : "pages",
+				targetControl : "appContent"
 			},
 			// The route configurations
-			routes: []
+			routes: {
+				"first": {
+					view: "FirstStep",
+					pattern: ""
+				},
+				"second": {
+					view: "SecondStep",
+					pattern: "area/{id}"
+				},
+				"third": {
+					view: "ThirdStep",
+					pattern: "plant/{id}"
+				}
+			}
 		}
 	},
 

@@ -1,0 +1,14 @@
+<core:View
+	controllerName="drone.view.FirstStep"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<Page title="{i18n>TITLE}" enableScrolling="false">
+		<content>
+			<Button text="To Second Step" press="toSecondStep" />
+		</content>
+	</Page>
+</core:View>
