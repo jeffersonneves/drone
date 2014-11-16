@@ -26,20 +26,11 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 				targetControl : "appContent"
 			},
 			// The route configurations
-			routes: {
-				"first": {
-					view: "FirstStep",
-					pattern: ""
-				},
-				"second": {
-					view: "SecondStep",
-					pattern: "area/{id}"
-				},
-				"third": {
-					view: "ThirdStep",
-					pattern: "plant/{id}"
-				}
-			}
+			routes: [
+				{ name: "first",  view: "FirstStep",  pattern: ""	},
+				{ name: "second", view: "SecondStep", pattern: "area/{id}" },
+				{ name: "third",  view: "ThirdStep",  pattern: "plant/{id}" }
+			]
 		}
 	},
 
@@ -60,9 +51,9 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 		this.setModel(i18nModel, "i18n");
 
 		// Create and set domain model to the component
-//		var sServiceUrl = mConfig.serviceConfig.serviceUrl;
-//		var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
-//		this.setModel(oModel);
+		var sServiceUrl = mConfig.serviceConfig.serviceUrl;
+		var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
+		this.setModel(oModel);
 
 		// set device model
 		var deviceModel = new sap.ui.model.json.JSONModel({
