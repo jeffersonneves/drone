@@ -9,9 +9,10 @@ sap.ui.controller("drone.view.FirstStep", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf drone.MainView
 */
-//	onInit: function() {
-//
-//	},
+	onInit: function() {
+		var oModel = new sap.ui.model.odata.ODataModel("/drone/services/Plant_Heat_Map.xsodata/Plant_Heat_Map");
+		sap.ui.getCore().setModel(oModel);
+	},
 
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
