@@ -2,13 +2,29 @@
 	controllerName="drone.view.FirstStep"
 	xmlns="sap.m"
 	xmlns:l="sap.ui.layout"
+	xmlns:ca="sap.ca.ui"
 	xmlns:core="sap.ui.core" 
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:html="http://www.w3.org/1999/xhtml">
 
 	<Page title="{i18n>TITLE}" enableScrolling="false">
 		<content>
-			<Button text="To Second Step" press="toSecondStep" />
+			<TileContainer>
+				<tiles>
+					<StandardTile title="Title 1" number="1" numberUnit="%" type="None" info="Info" infoState="Error"/>
+					<StandardTile title="Title 2" number="2" numberUnit="%" type="Monitor" />
+					<StandardTile title="Title 3" number="3" numberUnit="%" type="Create" />
+					<StandardTile title="Title 4" number="4" numberUnit="%" />
+					<StandardTile title="Title 5" number="5" numberUnit="%" />
+					<StandardTile title="Title 6" number="6" numberUnit="%" />
+					<StandardTile title="Title 7" number="7" numberUnit="%" />
+					<StandardTile title="Title 8" number="8" numberUnit="%" />
+					<StandardTile title="Title 9" number="9" numberUnit="%" />
+					<StandardTile title="Title 10" number="10" numberUnit="%" />
+					<StandardTile title="Title 11" number="11" numberUnit="%" />
+					<StandardTile title="Title 12" number="12" numberUnit="%" />
+				</tiles>
+			</TileContainer>
 		</content>
 	</Page>
 </core:View>
