@@ -12,6 +12,8 @@ sap.ui.controller("drone.view.FirstStep", {
 	onInit: function() {
 		var oModel = new sap.ui.model.odata.ODataModel("/drone/services/Plant_Heat_Map.xsodata/Plant_Heat_Map");
 		sap.ui.getCore().setModel(oModel);
+		
+		
 	},
 
 /**
