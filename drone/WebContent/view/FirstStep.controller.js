@@ -68,13 +68,13 @@ sap.ui.controller("drone.view.FirstStep", {
 		switch (color) {
 
 		case "3":
-			infoState = "error";
+			infoState = "Error";
 			break;
 		case "2":
-			infoState = "warning";
+			infoState = "Warning";
 			break;
 		default:
-			infoState = "success";
+			infoState = "Success";
 			break;
 		}
 
@@ -108,13 +108,13 @@ sap.ui.controller("drone.view.FirstStep", {
 		switch (color) {
 
 		case "3":
-			info = "Alert";
+			info = "This Area is under Alert!";
 			break;
 		case "2":
-			info = "Warning";
+			info = "Handle this Area with caution.";
 			break;
 		default:
-			info = "Ok";
+			info = "This Area is Ok!";
 			break;
 		}
 

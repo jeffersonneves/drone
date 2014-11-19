@@ -18,22 +18,113 @@ sap.ui.controller("drone.view.ThirdStep", {
 */
 	onInit: function() {
 		this.simulateChart();
+		this.getData();
 	},
 	
 	getData: function(){
 		//var oFilter = new sap.ui.model.Filter("PLANTATION_ID", sap.ui.model.FilterOperator.EQ, '1');
 		var oFilterArea = new sap.ui.model.Filter("AREA_ID", sap.ui.model.FilterOperator.EQ, this.queryParams.area);
 		var oFilterColumn = new sap.ui.model.Filter("PLANT_COLUMN", sap.ui.model.FilterOperator.EQ, this.queryParams.column);
-		var oFilterArea = new sap.ui.model.Filter("PLANT_ROW", sap.ui.model.FilterOperator.EQ, this.queryParams.row);
+		var oFilterRow = new sap.ui.model.Filter("PLANT_ROW", sap.ui.model.FilterOperator.EQ, this.queryParams.row);
 
 		this.getView().getModel().read("Plantation", {
 			urlParameters: {"$select": "PLANTATION_ID,AREA_ID"},
-			filters: [oFilter],
-			success: $.proxy(this.onDataReadOk, this),
+			filters: [oFilterArea, oFilterColumn, oFilterRow],
+			success: $.proxy(this.createChart, this),
 			error: $.proxy(this.onDataReadError, this)
 		});
 		
 	},
+	
+	dummyErrorMessage: function( response ){
+		alert(response.status);
+	},
+	
+	createImage: function( oData ){
+		this.getView().byId("plantImageID").setSrc();;
+	},
+	
+	createChart: function(oData, response){
+		var oVizFrame = this.getView().byId("idVizFrameLine");
+		var oPopOver = this.getView().byId("idPopOver");
+
+	    var amModel = new sap.ui.model.json.JSONModel({
+	    });
+	    amMode.setData( oData.results );
+		    
+		    
+	    var oDataset = new sap.viz.ui5.data.FlattenedDataset({
+	      dimensions : [ {
+	        name : 'PlantID',
+	        value : "{PLANT_ID}"
+	      } ],
+	      measures : [
+	      {
+	        name : 'Height',
+	        value : '{PLANT_OBSERVATION_HEIGHT}'
+	      }, {
+	        name : 'Oxigen',
+	        value : '{PLANT_OBSERVATION_OXIGEN_INDEX}'
+	      }, {
+	        name : "Humidity",
+	        value : "{ENVIRONMENT_OBSERVATION_HUMIDITY}"
+	      } ],
+	      data : {
+	        path : "/PlantCollection"
+	      }
+	    });
+	  
+	    oVizFrame.setVizProperties({
+	      plotArea : {
+	        isFixedDataPointSize : true,
+	        categorySize : {
+	           desktop : {
+	             minValue : 100
+	           }
+	        },
+	        dataLabel : {visible : true},
+	        
+	          lineStyle: {
+	             rules: [
+	                {
+	                   dataContext: [
+	                      //{Price: "*"} TODO check if this will not screw up things
+	                      {Plant:"*"}
+	                   ],
+	                   properties: {
+	                       width: 6
+	                   }
+	                 }]
+	              }
+	           },
+	        legend : {
+	          title: {visible : false}
+	        },
+	        
+	            title: {
+	                visible: true,
+	                text: 'Plant Data'
+	           }
+	    });
+	    oVizFrame.setDataset(oDataset);
+	    oVizFrame.setModel(amModel);
+
+	    var feedPrimaryValues = new sap.viz.ui5.controls.common.feeds.FeedItem({
+	      'uid' : "primaryValues",
+	      'type' : "Measure",
+	      'values' : ["Height", "Oxigen", "Humidity"]
+	    }), feedAxisLabels = new sap.viz.ui5.controls.common.feeds.FeedItem({
+	      'uid' : "axisLabels",
+	      'type' : "Dimension",
+	      'values' : ["PlantID"]
+	    });
+
+	    oVizFrame.addFeed(feedPrimaryValues);
+	    oVizFrame.addFeed(feedAxisLabels);
+	    oPopOver.connect(oVizFrame.getVizUid());
+
+	},
+	
 	
 	simulateChart: function(){
 		 var oVizFrame = this.getView().byId("idVizFrameLine");

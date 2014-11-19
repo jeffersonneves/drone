@@ -38,7 +38,7 @@ sap.ui.controller("drone.view.SecondStep", {
 		tiles.destroyTiles();
 
 		var oFilter = new sap.ui.model.Filter("AREA_ID",
-				sap.ui.model.FilterOperator.EQ, '1');
+				sap.ui.model.FilterOperator.EQ, this.getView().queryParams["area"]);
 
 		this.getView().getModel().read("Area_Color", {
 			urlParameters : {
@@ -48,7 +48,6 @@ sap.ui.controller("drone.view.SecondStep", {
 			success : $.proxy(this.onDataReadOk, this),
 			error : $.proxy(this.onDataReadError, this)
 		});
-
 	},
 
 	onDataReadOk : function(oData, response) {
@@ -75,13 +74,13 @@ sap.ui.controller("drone.view.SecondStep", {
 		switch (color) {
 
 		case "3":
-			infoState = "error";
+			infoState = "Error";
 			break;
 		case "2":
-			infoState = "warning";
+			infoState = "Warning";
 			break;
 		default:
-			infoState = "success";
+			infoState = "Success";
 			break;
 		}
 
@@ -115,13 +114,13 @@ sap.ui.controller("drone.view.SecondStep", {
 		switch (color) {
 
 		case "3":
-			info = "Alert";
+			info = "This Area is under Alert!";
 			break;
 		case "2":
-			info = "Warning";
+			info = "Handle this Area with caution.";
 			break;
 		default:
-			info = "Ok";
+			info = "This Area is Ok!";
 			break;
 		}
 

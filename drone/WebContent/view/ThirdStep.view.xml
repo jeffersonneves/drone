@@ -14,8 +14,9 @@
 					<l:VerticalLayout>
 						<m:Image
 							id="plantImageID"
-							src="img/planta.jpg"
-          					width="500px" height="500px">
+							width="500px" height="500px">
+							<!-- src="img/planta.jpg" -->
+          					
           					<!-- <layoutData>
             					<FlexItemData growFactor="1" />
           					</layoutData> -->
