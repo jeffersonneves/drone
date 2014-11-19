@@ -1,8 +1,44 @@
-<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+<core:View 
+		 xmlns:core="sap.ui.core" 
+		 xmlns:mvc="sap.ui.core.mvc" 
+		 xmlns:viz="sap.viz.ui5.controls"
+		 xmlns:l="sap.ui.layout"
+  		 xmlns:m="sap.m"
 		controllerName="drone.view.ThirdStep" xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="{i18n>TITLE}" showNavButton="true" navButtonPress="toSecondStep">
-		<content>
-	
-		</content>
-	</Page>
+	<m:Page title="{i18n>TITLE}" showNavButton="true" navButtonPress="toSecondStep">
+		<m:content>
+			<l:VerticalLayout>
+				<l:HorizontalLayout>
+					
+					<l:VerticalLayout>
+						<m:Image
+							id="plantImageID"
+							src="img/planta.jpg"
+          					width="500px" height="500px">
+          					<!-- <layoutData>
+            					<FlexItemData growFactor="1" />
+          					</layoutData> -->
+          				</m:Image>
+          			</l:VerticalLayout>
+          			
+					<l:VerticalLayout>
+						<viz:Popover id="idPopOver"></viz:Popover>
+		  				<!--  <viz:VizFrame id="idVizFrameLine" uiConfig="{applicationSet:'fiori'}" vizType="line" width="500px" height="500px"> -->
+		  				<viz:VizFrame id="idVizFrameLine" uiConfig="{applicationSet:'fiori'}" vizType="bar" width="500px" height="500px">
+		  				</viz:VizFrame>	
+  					</l:VerticalLayout>
+  					
+  					<l:VerticalLayout>
+						<viz:Popover id="idPopOver2"></viz:Popover>
+		  				<!--  <viz:VizFrame id="idVizFrameLine" uiConfig="{applicationSet:'fiori'}" vizType="line" width="500px" height="500px"> -->
+		  				<viz:VizFrame id="tableOtherData" uiConfig="{applicationSet:'fiori'}" vizType="bar" width="500px" height="500px">
+		  				</viz:VizFrame>	
+  					</l:VerticalLayout>
+  					
+  					
+  				</l:HorizontalLayout>
+			</l:VerticalLayout>
+		</m:content>
+	</m:Page>
+       
 </core:View>

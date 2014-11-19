@@ -1,7 +1,14 @@
 sap.ui.controller("drone.view.ThirdStep", {
 
+	
+	//http://brslehana01.sle.sap.corp:8000/drone/services/Plant_Heat_Map.xsodata/Plant_Heat_Map?%24format=json
+	
 	toSecondStep: function (oEvent){
 		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {area:"1"});
+	},
+	
+	setModelData: function( aNewData ){
+		this.model.setProperty("/plantData", aNewData);
 	},
 
 /**
@@ -9,9 +16,96 @@ sap.ui.controller("drone.view.ThirdStep", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf view.ThirdStep
 */
-//	onInit: function() {
-//
-//	},
+	onInit: function() {
+		this.simulateChart();
+	},
+	
+	simulateChart: function(){
+		 var oVizFrame = this.getView().byId("idVizFrameLine");
+		    var oPopOver = this.getView().byId("idPopOver");
+
+		    var amModel = new sap.ui.model.json.JSONModel({
+		        'PlantCollection' : [
+		                  {
+		                  "PLANT_ID": "1239102",
+		                  "PLANT_OBSERVATION_HEIGHT": 126,
+		                  "PLANT_OBSERVATION_OXIGEN_INDEX": 80,
+		                  "ENVIRONMENT_OBSERVATION_HUMIDITY": 70
+		                },
+		                ]
+		    });
+		    
+		    
+		    var oDataset = new sap.viz.ui5.data.FlattenedDataset({
+		      dimensions : [ {
+		        name : 'PlantID',
+		        value : "{PLANT_ID}"
+		      } ],
+		      measures : [
+		      {
+		        name : 'Height',
+		        value : '{PLANT_OBSERVATION_HEIGHT}'
+		      }, {
+		        name : 'Oxigen',
+		        value : '{PLANT_OBSERVATION_OXIGEN_INDEX}'
+		      }, {
+		        name : "Humidity",
+		        value : "{ENVIRONMENT_OBSERVATION_HUMIDITY}"
+		      } ],
+		      data : {
+		        path : "/PlantCollection"
+		      }
+		    });
+		  
+		    oVizFrame.setVizProperties({
+		      plotArea : {
+		        isFixedDataPointSize : true,
+		        categorySize : {
+		           desktop : {
+		             minValue : 100
+		           }
+		        },
+		        dataLabel : {visible : true},
+		        
+		          lineStyle: {
+		             rules: [
+		                {
+		                   dataContext: [
+		                      {Price: "*"}
+		                   ],
+		                   properties: {
+		                       width: 6
+		                   }
+		                 }]
+		              }
+		           },
+		        legend : {
+		          title: {visible : false}
+		        },
+		        
+		            title: {
+		                visible: true,
+		                text: 'Plant Data'
+		           }
+		    });
+		    oVizFrame.setDataset(oDataset);
+		    oVizFrame.setModel(amModel);
+
+		    var feedPrimaryValues = new sap.viz.ui5.controls.common.feeds.FeedItem({
+		      'uid' : "primaryValues",
+		      'type' : "Measure",
+		      'values' : ["Height", "Oxigen", "Humidity"]
+		    }), feedAxisLabels = new sap.viz.ui5.controls.common.feeds.FeedItem({
+		      'uid' : "axisLabels",
+		      'type' : "Dimension",
+		      'values' : ["PlantID"]
+		    });
+
+		    oVizFrame.addFeed(feedPrimaryValues);
+		    oVizFrame.addFeed(feedAxisLabels);
+		    oPopOver.connect(oVizFrame.getVizUid());
+
+	},
 
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
