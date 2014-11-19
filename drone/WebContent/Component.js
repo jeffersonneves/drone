@@ -74,7 +74,7 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 		this.getRouter().attachRouteMatched(function (oEvent){
 			var params = oEvent.getParameters();
 			
-			params.view.addCustomData(new sap.ui.core.CustomData({key:"arguments", value: params.arguments}));
+			params.view.getController().queryParams = params.arguments;
 			
 			params.targetControl.to(params.view);
 		});
