@@ -20,6 +20,21 @@ sap.ui.controller("drone.view.ThirdStep", {
 		this.simulateChart();
 	},
 	
+	getData: function(){
+		//var oFilter = new sap.ui.model.Filter("PLANTATION_ID", sap.ui.model.FilterOperator.EQ, '1');
+		var oFilterArea = new sap.ui.model.Filter("AREA_ID", sap.ui.model.FilterOperator.EQ, this.queryParams.area);
+		var oFilterColumn = new sap.ui.model.Filter("PLANT_COLUMN", sap.ui.model.FilterOperator.EQ, this.queryParams.column);
+		var oFilterArea = new sap.ui.model.Filter("PLANT_ROW", sap.ui.model.FilterOperator.EQ, this.queryParams.row);
+
+		this.getView().getModel().read("Plantation", {
+			urlParameters: {"$select": "PLANTATION_ID,AREA_ID"},
+			filters: [oFilter],
+			success: $.proxy(this.onDataReadOk, this),
+			error: $.proxy(this.onDataReadError, this)
+		});
+		
+	},
+	
 	simulateChart: function(){
 		 var oVizFrame = this.getView().byId("idVizFrameLine");
 		    var oPopOver = this.getView().byId("idPopOver");

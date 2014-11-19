@@ -30,11 +30,11 @@
   					</l:VerticalLayout>
   					
   					<l:VerticalLayout>
-    					<commons:Text text="Teste" />
-    					<commons:Text text="Teste" />
-    					<commons:Text text="Teste" />
-    					<commons:Text text="Teste" />
-    					<commons:Text text="Teste" />
+    					<!--  <m:Text text="Teste" />
+    					<m:Text text="Teste" />
+    					<m:Text text="Teste" />
+    					<m:Text text="Teste" />
+    					<m:Text text="Teste" /> -->
   					</l:VerticalLayout>
   					
   					
