@@ -1,7 +1,7 @@
 sap.ui.controller("drone.view.FirstStep", {
 
-	toSecondStep: function (oEvent){
-		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {area:"1"});
+	toSecondStep: function (sId, oEvent){
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {area: sId});
 	},
 	
 /**
@@ -10,20 +10,44 @@ sap.ui.controller("drone.view.FirstStep", {
 * @memberOf drone.MainView
 */
 	onInit: function() {
-		
-		var oModel = new sap.ui.model.odata.ODataModel("/drone/services/Plant_Heat_Map.xsodata/Plant_Heat_Map");
-		sap.ui.getCore().setModel(oModel);
-		
-		
-	},
 
+	},
+	
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 * (NOT before the first rendering! onInit() is used for that one!).
 * @memberOf drone.MainView
 */
-	onBeforeRendering: function() {
+	onBeforeRendering: function(oEvent) {
+		var tiles = this.byId("allTiles");
 
+		tiles.setBusy(true);
+		tiles.destroyTiles();
+
+		var oFilter = new sap.ui.model.Filter("PLANTATION_ID", sap.ui.model.FilterOperator.EQ, '1');
+
+		this.getView().getModel().read("Plantation", {
+			urlParameters: {"$select": "PLANTATION_ID,AREA_ID"},
+			filters: [oFilter],
+			success: $.proxy(this.onDataReadOk, this),
+			error: $.proxy(this.onDataReadError, this)
+		});
+	},
+
+	onDataReadOk: function(oData, response) {
+		var data = oData.results;
+
+		for (var i=0; i<data.length; i++){
+			this.byId("allTiles").addTile(new sap.m.StandardTile({
+				title: "Area " + data[i].AREA_ID,
+				press: $.proxy(this.toSecondStep, this, data[i].AREA_ID)
+			}));
+		}
+		this.byId("allTiles").setBusy(false);
+	},
+
+	onDataReadError: function(oError) {
+		this.byId("allTiles").setBusy(false);
 	},
 
 /**
