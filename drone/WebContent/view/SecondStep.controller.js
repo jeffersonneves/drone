@@ -1,7 +1,8 @@
 sap.ui.controller("drone.view.SecondStep", {
 
 	toThirdStep: function (oEvent){
-		sap.ui.core.UIComponent.getRouterFor(this).navTo("third", {area: this.queryParams.area, plant:"1"});
+
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("third", {area: this.queryParams.area, column:"1", row:"1"});
 	},
 
 	toFirstStep: function (oEvent){
