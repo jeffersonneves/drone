@@ -1,3 +1,4 @@
+
 jQuery.sap.declare("drone.Component");
 
 sap.ui.core.UIComponent.extend("drone.Component", {
@@ -30,7 +31,7 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 			routes: [
 				{ name: "first",  view: "FirstStep",  pattern: ""	},
 				{ name: "second", view: "SecondStep", pattern: "area/{area}" },
-				{ name: "third",  view: "ThirdStep",  pattern: "area/{area}/column/{column}/row/{row}" }
+				{ name: "third", view: "ThirdStep", pattern: "area/{area}/column/{column}/row/{row}" }
 			]
 		}
 	},
@@ -51,7 +52,7 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 		});
 		this.setModel(i18nModel, "i18n");
 
-		// Create and set domain model to the component
+		// Create and set domain model to the component   
 		var sServiceUrl = mConfig.serviceConfig.serviceUrl;
 		var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
 		this.setModel(oModel);

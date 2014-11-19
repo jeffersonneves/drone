@@ -4,6 +4,7 @@
 		 xmlns:viz="sap.viz.ui5.controls"
 		 xmlns:l="sap.ui.layout"
   		 xmlns:m="sap.m"
+  		 xmlns:commons="sap.ui.commons"
 		controllerName="drone.view.ThirdStep" xmlns:html="http://www.w3.org/1999/xhtml">
 	<m:Page title="{i18n>TITLE}" showNavButton="true" navButtonPress="toSecondStep">
 		<m:content>
@@ -29,10 +30,11 @@
   					</l:VerticalLayout>
   					
   					<l:VerticalLayout>
-						<viz:Popover id="idPopOver2"></viz:Popover>
-		  				<!--  <viz:VizFrame id="idVizFrameLine" uiConfig="{applicationSet:'fiori'}" vizType="line" width="500px" height="500px"> -->
-		  				<viz:VizFrame id="tableOtherData" uiConfig="{applicationSet:'fiori'}" vizType="bar" width="500px" height="500px">
-		  				</viz:VizFrame>	
+    					<commons:Text text="Teste" />
+    					<commons:Text text="Teste" />
+    					<commons:Text text="Teste" />
+    					<commons:Text text="Teste" />
+    					<commons:Text text="Teste" />
   					</l:VerticalLayout>
   					
   					
