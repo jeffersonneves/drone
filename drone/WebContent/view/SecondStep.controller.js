@@ -2,9 +2,12 @@ sap.ui.controller("drone.view.SecondStep", {
 
 	toThirdStep : function(sArea, sRow, sColumn, oEvent) {
 		sap.ui.core.UIComponent.getRouterFor(this).navTo("third", {
-			area : sArea,
+			/*area : sArea,
 			row : sRow,
-			column : sColumn,
+			column : sColumn,*/
+			area : "1",
+			column : "1",
+			row : "1",
 		});
 	},
 
@@ -38,7 +41,7 @@ sap.ui.controller("drone.view.SecondStep", {
 		tiles.destroyTiles();
 
 		var oFilter = new sap.ui.model.Filter("AREA_ID",
-				sap.ui.model.FilterOperator.EQ, this.getView().queryParams["area"]);
+				sap.ui.model.FilterOperator.EQ, this.queryParams["area"]);
 
 		this.getView().getModel().read("Area_Color", {
 			urlParameters : {
@@ -59,7 +62,7 @@ sap.ui.controller("drone.view.SecondStep", {
 				infoState : this.defineInfoState(data[i].COLOR),
 				info : this.defineInfo(data[i].COLOR),
 				icon : this.defineIcon(data[i].COLOR),
-				press : $.proxy(this.toThirdStep, this, data[i].PLANT_ID, data[i].ROW, data[i].COLUMN)
+				press : $.proxy( this.toThirdStep,this, data[i].AREA_ID, data[i].ROW, data[i].COLUMN)
 			}));
 		}
 		this.byId("allTiles").setBusy(false);

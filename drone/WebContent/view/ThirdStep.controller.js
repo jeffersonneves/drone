@@ -23,9 +23,9 @@ sap.ui.controller("drone.view.ThirdStep", {
 	
 	getData: function(){
 		//var oFilter = new sap.ui.model.Filter("PLANTATION_ID", sap.ui.model.FilterOperator.EQ, '1');
-		var oFilterArea = new sap.ui.model.Filter("AREA_ID", sap.ui.model.FilterOperator.EQ, this.queryParams.area);
-		var oFilterColumn = new sap.ui.model.Filter("PLANT_COLUMN", sap.ui.model.FilterOperator.EQ, this.queryParams.column);
-		var oFilterRow = new sap.ui.model.Filter("PLANT_ROW", sap.ui.model.FilterOperator.EQ, this.queryParams.row);
+		var oFilterArea = new sap.ui.model.Filter("AREA_ID", sap.ui.model.FilterOperator.EQ, this.queryParams["area"]);
+		var oFilterColumn = new sap.ui.model.Filter("PLANT_COLUMN", sap.ui.model.FilterOperator.EQ, this.queryParams["column"]);
+		var oFilterRow = new sap.ui.model.Filter("PLANT_ROW", sap.ui.model.FilterOperator.EQ, this.queryParams["row"]);
 
 		this.getView().getModel().read("Plantation", {
 			urlParameters: {"$select": "PLANTATION_ID,AREA_ID"},
