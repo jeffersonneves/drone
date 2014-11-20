@@ -1,16 +1,10 @@
 sap.ui.controller("drone.view.ThirdStep", {
 
 	
-	//http://brslehana01.sle.sap.corp:8000/drone/services/Plant_Heat_Map.xsodata/Plant_Heat_Map?%24format=json
-	
 	toSecondStep: function (oEvent){
 		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {area:"1"});
 	},
 	
-	setModelData: function( aNewData ){
-		this.model.setProperty("/plantData", aNewData);
-	},
-
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -23,7 +17,6 @@ sap.ui.controller("drone.view.ThirdStep", {
 		                    
 		       this.queryParams = params.arguments;
 		       
-		       that.simulateChart();
 		       that.getData();
 		});
 	},
@@ -43,33 +36,38 @@ sap.ui.controller("drone.view.ThirdStep", {
 		alert(response.status);
 	},
 	
-	
 	createScreenData: function( oData ){
 		this.createChart( oData );
-		//this.createImage( oData ); TODO
-		
+		this.createImage( oData ); 
+		this.setTextAreaMessage( oData );
 	},
 	
 	createImage: function( oData ){
-		this.getView().byId("plantImageID").setSrc();
+		var data = oData.results[0];
+		var img = data.PLANT_OBSERVATION_IMAGE_URL;
+		//if there is no registered plant
+		if( !img == "url" ){
+			this.getView().byId("plantImageID").setSrc( data.PLANT_OBSERVATION_IMAGE_URL );
+		}
+		else{
+			this.getView().byId("plantImageID").setSrc( "img/planta.jpg");
+		}
 	},
 	
 	createChart: function( oData ){
 		 var oVizFrame = this.getView().byId("idVizFrameLine");
 		    var oPopOver = this.getView().byId("idPopOver");
 
+		    var data = oData.results[0];
+
 		    var amModel = new sap.ui.model.json.JSONModel({
+		        'PlantCollection' : [ data ]		               
 		    });
-		    
-		    var data = oData.results;
-		    
-		    amModel.setData( data );
-		    
 		    
 		    var oDataset = new sap.viz.ui5.data.FlattenedDataset({
 		      dimensions : [ {
-		        name : 'PlantName',
-		        value : "{PLANT_TYPE_NAME}"
+		        name : 'PlantTypeID',
+		        value : "{PLANT_TYPE_ID}"
 		      } ],
 		      measures : [
 		      {
@@ -80,7 +78,7 @@ sap.ui.controller("drone.view.ThirdStep", {
 		        value : '{PLANT_OBSERVATION_OXIGEN_INDEX}'
 		      }, {
 		        name : "Humidity",
-		        value : "{ENVIRONMENT_OBSERVATION_HUMIDITY}"
+		        value : "{PLANT_OBSERVATION_HUMIDITY}"
 		      }, 
 		      {
 		    	name : "Luminosity",
@@ -137,13 +135,27 @@ sap.ui.controller("drone.view.ThirdStep", {
 		    }), feedAxisLabels = new sap.viz.ui5.controls.common.feeds.FeedItem({
 		      'uid' : "axisLabels",
 		      'type' : "Dimension",
-		      'values' : ["PlantName"]
+		      'values' : ["PlantTypeID"]
 		    });
 
 		    oVizFrame.addFeed(feedPrimaryValues);
 		    oVizFrame.addFeed(feedAxisLabels);
 		    oPopOver.connect(oVizFrame.getVizUid());
 
+	},
+	
+	setTextAreaMessage: function( oData ){
+		var data = oData.results;
+		if( data.PLANT_TYPE_NAME != undefined ){
+			var name = "Type of Plant: " + data.PLANT_TYPE_NAME;
+			this.getView().byId("inputPlantTypeId").setValue( data.PLANT_TYPE_NAME );
+		} 
+		else{
+			this.getView().byId("inputPlantTypeId").destroy();
+		}
+		
+		
+		
 	},
 
 /**

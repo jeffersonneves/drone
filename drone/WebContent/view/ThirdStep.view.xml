@@ -10,24 +10,14 @@
 		<m:content>
 			<l:VerticalLayout>
 				<l:HorizontalLayout>
-					
-					
-					<l:VerticalLayout>
-  						<l:HorizontalLayout>
-  							<m:Label text="Plant Type:  "></m:Label>
-  							<m:Text text="Something"></m:Text>
-  						</l:HorizontalLayout>
-  					</l:VerticalLayout>
-					<l:VerticalLayout>
+  					<m:TextArea id="inputPlantTypeId" editable="false" rows="1" value="SomePlant" style="margin-left:200% !important"></m:TextArea>
+  				</l:HorizontalLayout>
+				<l:HorizontalLayout>
+					<l:VerticalLayout id="imgLayoutId">
 						<m:Image
 							id="plantImageID"
 							width="500px" height="500px">
-							<!-- src="img/planta.jpg" -->
-          					
-          					<!-- <layoutData>
-            					<FlexItemData growFactor="1" />
-          					</layoutData> -->
-          				</m:Image>
+          				</m:Image> 
           			</l:VerticalLayout>
           			
 					<l:VerticalLayout>
