@@ -11,6 +11,13 @@
 			<l:VerticalLayout>
 				<l:HorizontalLayout>
 					
+					
+					<l:VerticalLayout>
+  						<l:HorizontalLayout>
+  							<m:Label text="Plant Type:  "></m:Label>
+  							<m:Text text="Something"></m:Text>
+  						</l:HorizontalLayout>
+  					</l:VerticalLayout>
 					<l:VerticalLayout>
 						<m:Image
 							id="plantImageID"
@@ -25,20 +32,9 @@
           			
 					<l:VerticalLayout>
 						<viz:Popover id="idPopOver"></viz:Popover>
-		  				<!--  <viz:VizFrame id="idVizFrameLine" uiConfig="{applicationSet:'fiori'}" vizType="line" width="500px" height="500px"> -->
 		  				<viz:VizFrame id="idVizFrameLine" uiConfig="{applicationSet:'fiori'}" vizType="bar" width="500px" height="500px">
 		  				</viz:VizFrame>	
   					</l:VerticalLayout>
-  					
-  					<l:VerticalLayout>
-    					<!--  <m:Text text="Teste" />
-    					<m:Text text="Teste" />
-    					<m:Text text="Teste" />
-    					<m:Text text="Teste" />
-    					<m:Text text="Teste" /> -->
-  					</l:VerticalLayout>
-  					
-  					
   				</l:HorizontalLayout>
 			</l:VerticalLayout>
 		</m:content>

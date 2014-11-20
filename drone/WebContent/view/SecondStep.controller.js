@@ -2,12 +2,7 @@ sap.ui.controller("drone.view.SecondStep", {
 
 	toThirdStep : function(sArea, sRow, sColumn, oEvent) {
 		sap.ui.core.UIComponent.getRouterFor(this).navTo("third", {
-			/*area : sArea,
-			row : sRow,
-			column : sColumn,*/
-			area : "1",
-			column : "1",
-			row : "1",
+			observationkey : "1",
 		});
 	},
 
@@ -23,9 +18,13 @@ sap.ui.controller("drone.view.SecondStep", {
 	 * 
 	 * @memberOf view.SecondStep
 	 */
-	// onInit: function() {
-	//
-	// },
+	 onInit: function() {
+		 sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(function (oEvent){
+		       var params = oEvent.getParameters();
+		                    
+		       this.queryParams = params.arguments;
+		});
+	 },
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the
 	 * controller's View is re-rendered (NOT before the first rendering!

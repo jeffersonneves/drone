@@ -17,20 +17,23 @@ sap.ui.controller("drone.view.ThirdStep", {
 * @memberOf view.ThirdStep
 */
 	onInit: function() {
-		this.simulateChart();
-		this.getData();
+		var that = this;
+		sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(function (oEvent){
+		       var params = oEvent.getParameters();
+		                    
+		       this.queryParams = params.arguments;
+		       
+		       that.simulateChart();
+		       that.getData();
+		});
 	},
 	
 	getData: function(){
-		//var oFilter = new sap.ui.model.Filter("PLANTATION_ID", sap.ui.model.FilterOperator.EQ, '1');
-		var oFilterArea = new sap.ui.model.Filter("AREA_ID", sap.ui.model.FilterOperator.EQ, this.queryParams["area"]);
-		var oFilterColumn = new sap.ui.model.Filter("PLANT_COLUMN", sap.ui.model.FilterOperator.EQ, this.queryParams["column"]);
-		var oFilterRow = new sap.ui.model.Filter("PLANT_ROW", sap.ui.model.FilterOperator.EQ, this.queryParams["row"]);
+		var oFilter = new sap.ui.model.Filter("PLANT_OBSERVATION_ID", sap.ui.model.FilterOperator.EQ, this.queryParams["observationkey"]);
 
-		this.getView().getModel().read("Plantation", {
-			urlParameters: {"$select": "PLANTATION_ID,AREA_ID"},
-			filters: [oFilterArea, oFilterColumn, oFilterRow],
-			success: $.proxy(this.createChart, this),
+		this.getView().getModel().read("Plant_Observation", {
+			filters: [oFilter],
+			success: $.proxy(this.createScreenData, this),
 			error: $.proxy(this.onDataReadError, this)
 		});
 		
@@ -40,112 +43,33 @@ sap.ui.controller("drone.view.ThirdStep", {
 		alert(response.status);
 	},
 	
+	
+	createScreenData: function( oData ){
+		this.createChart( oData );
+		//this.createImage( oData ); TODO
+		
+	},
+	
 	createImage: function( oData ){
-		this.getView().byId("plantImageID").setSrc();;
+		this.getView().byId("plantImageID").setSrc();
 	},
 	
-	createChart: function(oData, response){
-		var oVizFrame = this.getView().byId("idVizFrameLine");
-		var oPopOver = this.getView().byId("idPopOver");
-
-	    var amModel = new sap.ui.model.json.JSONModel({
-	    });
-	    amMode.setData( oData.results );
-		    
-		    
-	    var oDataset = new sap.viz.ui5.data.FlattenedDataset({
-	      dimensions : [ {
-	        name : 'PlantID',
-	        value : "{PLANT_ID}"
-	      } ],
-	      measures : [
-	      {
-	        name : 'Height',
-	        value : '{PLANT_OBSERVATION_HEIGHT}'
-	      }, {
-	        name : 'Oxigen',
-	        value : '{PLANT_OBSERVATION_OXIGEN_INDEX}'
-	      }, {
-	        name : "Humidity",
-	        value : "{ENVIRONMENT_OBSERVATION_HUMIDITY}"
-	      } ],
-	      data : {
-	        path : "/PlantCollection"
-	      }
-	    });
-	  
-	    oVizFrame.setVizProperties({
-	      plotArea : {
-	        isFixedDataPointSize : true,
-	        categorySize : {
-	           desktop : {
-	             minValue : 100
-	           }
-	        },
-	        dataLabel : {visible : true},
-	        
-	          lineStyle: {
-	             rules: [
-	                {
-	                   dataContext: [
-	                      //{Price: "*"} TODO check if this will not screw up things
-	                      {Plant:"*"}
-	                   ],
-	                   properties: {
-	                       width: 6
-	                   }
-	                 }]
-	              }
-	           },
-	        legend : {
-	          title: {visible : false}
-	        },
-	        
-	            title: {
-	                visible: true,
-	                text: 'Plant Data'
-	           }
-	    });
-	    oVizFrame.setDataset(oDataset);
-	    oVizFrame.setModel(amModel);
-
-	    var feedPrimaryValues = new sap.viz.ui5.controls.common.feeds.FeedItem({
-	      'uid' : "primaryValues",
-	      'type' : "Measure",
-	      'values' : ["Height", "Oxigen", "Humidity"]
-	    }), feedAxisLabels = new sap.viz.ui5.controls.common.feeds.FeedItem({
-	      'uid' : "axisLabels",
-	      'type' : "Dimension",
-	      'values' : ["PlantID"]
-	    });
-
-	    oVizFrame.addFeed(feedPrimaryValues);
-	    oVizFrame.addFeed(feedAxisLabels);
-	    oPopOver.connect(oVizFrame.getVizUid());
-
-	},
-	
-	
-	simulateChart: function(){
+	createChart: function( oData ){
 		 var oVizFrame = this.getView().byId("idVizFrameLine");
 		    var oPopOver = this.getView().byId("idPopOver");
 
 		    var amModel = new sap.ui.model.json.JSONModel({
-		        'PlantCollection' : [
-		                  {
-		                  "PLANT_ID": "1239102",
-		                  "PLANT_OBSERVATION_HEIGHT": 126,
-		                  "PLANT_OBSERVATION_OXIGEN_INDEX": 80,
-		                  "ENVIRONMENT_OBSERVATION_HUMIDITY": 70
-		                },
-		                ]
 		    });
+		    
+		    var data = oData.results;
+		    
+		    amModel.setData( data );
 		    
 		    
 		    var oDataset = new sap.viz.ui5.data.FlattenedDataset({
 		      dimensions : [ {
-		        name : 'PlantID',
-		        value : "{PLANT_ID}"
+		        name : 'PlantName',
+		        value : "{PLANT_TYPE_NAME}"
 		      } ],
 		      measures : [
 		      {
@@ -157,7 +81,16 @@ sap.ui.controller("drone.view.ThirdStep", {
 		      }, {
 		        name : "Humidity",
 		        value : "{ENVIRONMENT_OBSERVATION_HUMIDITY}"
-		      } ],
+		      }, 
+		      {
+		    	name : "Luminosity",
+		    	value: "{PLANT_OBSERVATION_LUMINOSITY}"
+			  }
+		      , 
+		      {
+		    	name : "Temperature",
+		    	value: "{PLANT_OBSERVATION_TEMPERATURE}"
+			  }],
 		      data : {
 		        path : "/PlantCollection"
 		      }
@@ -200,11 +133,11 @@ sap.ui.controller("drone.view.ThirdStep", {
 		    var feedPrimaryValues = new sap.viz.ui5.controls.common.feeds.FeedItem({
 		      'uid' : "primaryValues",
 		      'type' : "Measure",
-		      'values' : ["Height", "Oxigen", "Humidity"]
+		      'values' : ["Height", "Oxigen", "Humidity", "Luminosity", "Temperature"]
 		    }), feedAxisLabels = new sap.viz.ui5.controls.common.feeds.FeedItem({
 		      'uid' : "axisLabels",
 		      'type' : "Dimension",
-		      'values' : ["PlantID"]
+		      'values' : ["PlantName"]
 		    });
 
 		    oVizFrame.addFeed(feedPrimaryValues);
