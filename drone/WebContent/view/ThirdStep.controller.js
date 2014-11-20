@@ -46,11 +46,12 @@ sap.ui.controller("drone.view.ThirdStep", {
 		var data = oData.results[0];
 		var img = data.PLANT_OBSERVATION_IMAGE_URL;
 		//if there is no registered plant
-		if( !img == "url" ){
+		if( !img == "url"){
 			this.getView().byId("plantImageID").setSrc( data.PLANT_OBSERVATION_IMAGE_URL );
 		}
 		else{
-			this.getView().byId("plantImageID").setSrc( "img/planta.jpg");
+			if( this.getView().byId("plantImageID")  )
+				this.getView().byId("plantImageID").setSrc( "img/planta.jpg");
 		}
 	},
 	

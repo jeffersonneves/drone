@@ -1,8 +1,8 @@
 sap.ui.controller("drone.view.SecondStep", {
 
-	toThirdStep : function(sArea, sRow, sColumn, oEvent) {
+	toThirdStep : function(sKey) {
 		sap.ui.core.UIComponent.getRouterFor(this).navTo("third", {
-			observationkey : "1",
+			observationkey : sKey,
 		});
 	},
 
@@ -41,12 +41,14 @@ sap.ui.controller("drone.view.SecondStep", {
 
 		var oFilter = new sap.ui.model.Filter("AREA_ID",
 				sap.ui.model.FilterOperator.EQ, this.queryParams["area"]);
-
-		this.getView().getModel().read("Area_Color", {
+		var oFilterColor = new sap.ui.model.Filter("AREA_ID",
+				sap.ui.model.FilterOperator.EQ, this.queryParams["finalcolor"]);
+		
+		this.getView().getModel().read("Plant_Color", {
 			urlParameters : {
 				"$top" : "15"
 			},
-			filters : [ oFilter ],
+			filters : [ oFilter, oFilterColor ],
 			success : $.proxy(this.onDataReadOk, this),
 			error : $.proxy(this.onDataReadError, this)
 		});
@@ -57,11 +59,11 @@ sap.ui.controller("drone.view.SecondStep", {
 
 		for (var i = 0; i < data.length; i++) {
 			this.byId("allTiles").addTile(new sap.m.StandardTile({
-				title : "Plant " + data[i].PLANT_ID,
-				infoState : this.defineInfoState(data[i].COLOR),
-				info : this.defineInfo(data[i].COLOR),
-				icon : this.defineIcon(data[i].COLOR),
-				press : $.proxy( this.toThirdStep,this, data[i].AREA_ID, data[i].ROW, data[i].COLUMN)
+				title : "Plant " + data[i].PLANTATION_ID,
+				infoState : this.defineInfoState(data[i].PLANT_COLOR),
+				info : this.defineInfo(data[i].PLANT_COLOR),
+				icon : this.defineIcon(data[i].PLANT_COLOR),
+				press : $.proxy( this.toThirdStep,this, data[i].PLANT_OBSERVATION_ID)
 			}));
 		}
 		this.byId("allTiles").setBusy(false);

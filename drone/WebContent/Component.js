@@ -30,7 +30,7 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 			// The route configurations
 			routes: [
 				{ name: "first",  view: "FirstStep",  pattern: ""	},
-				{ name: "second", view: "SecondStep", pattern: "area/{area}" },
+				{ name: "second", view: "SecondStep", pattern: "area/{area}/finalcolor/{finalcolor}" },
 				{ name: "third", view: "ThirdStep", pattern: "observationkey/{observationkey}" }
 			]
 		}

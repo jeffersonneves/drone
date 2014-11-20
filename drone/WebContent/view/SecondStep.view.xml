@@ -9,5 +9,6 @@
 			<Button text="To Third Step" press="toThirdStep" />
 			<TileContainer id="allTiles" />
 		</content>
+		
 	</Page>
 </core:View>

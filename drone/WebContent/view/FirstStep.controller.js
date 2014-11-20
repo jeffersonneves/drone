@@ -1,8 +1,9 @@
 sap.ui.controller("drone.view.FirstStep", {
 
-	toSecondStep : function(sId, oEvent) {
+	toSecondStep : function(sId, sColor, oEvent) {
 		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {
-			area : sId
+			area : sId,
+			finalcolor: sColor
 		});
 	},
 
@@ -53,7 +54,7 @@ sap.ui.controller("drone.view.FirstStep", {
 				infoState : this.defineInfoState(data[i].COLOR),
 				info : this.defineInfo(data[i].COLOR),
 				icon : this.defineIcon(data[i].COLOR),
-				press : $.proxy(this.toSecondStep, this, data[i].AREA_ID)
+				press : $.proxy(this.toSecondStep, this, data[i].AREA_ID, data[i].FINAL_COLOR)
 			}));
 		}
 		this.byId("allTiles").setBusy(false);
