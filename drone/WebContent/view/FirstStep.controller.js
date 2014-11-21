@@ -95,7 +95,7 @@ sap.ui.controller("drone.view.FirstStep", {
 			icon = "notification";
 			break;
 		default:
-			icon = "completed";
+			icon = "complete";
 			break;
 		}
 

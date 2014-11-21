@@ -66,7 +66,7 @@ sap.ui.controller("drone.view.SecondStep", {
 
 		for (var i = 0; i < data.length; i++) {
 			this.byId("allTilesPlant").addTile(new sap.m.StandardTile({
-				title : "Plant " + data[i].PLANTATION_ID,
+				title : "Plant " + data[i].PLANT_OBSERVATION_ID,
 				infoState : this.defineInfoState(data[i].PLANT_COLOR),
 				info : this.defineInfo(data[i].PLANT_COLOR),
 				icon : this.defineIcon(data[i].PLANT_COLOR),
@@ -111,7 +111,7 @@ sap.ui.controller("drone.view.SecondStep", {
 			icon = "notification";
 			break;
 		default:
-			icon = "completed";
+			icon = "complete";
 			break;
 		}
 
