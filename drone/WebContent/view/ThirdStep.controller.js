@@ -2,7 +2,7 @@ sap.ui.controller("drone.view.ThirdStep", {
 
 	
 	toSecondStep: function (oEvent){
-		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {area:"1"});
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("second", {area:this.queryParams["area"], finalcolor:this.queryParams["finalcolor"]});
 	},
 	
 /**
@@ -103,7 +103,7 @@ sap.ui.controller("drone.view.ThirdStep", {
 		             minValue : 100
 		           }
 		        },
-		        dataLabel : {visible : true},
+		        dataLabel : {visible : false},
 		        
 		          lineStyle: {
 		             rules: [
@@ -147,16 +147,14 @@ sap.ui.controller("drone.view.ThirdStep", {
 	
 	setTextAreaMessage: function( oData ){
 		var data = oData.results;
-		if( data.PLANT_TYPE_NAME != undefined ){
-			var name = "Type of Plant: " + data.PLANT_TYPE_NAME;
-			this.getView().byId("inputPlantTypeId").setValue( data.PLANT_TYPE_NAME );
-		} 
-		else{
-			this.getView().byId("inputPlantTypeId").destroy();
-		}
-		
-		
-		
+		if( this.getView().byId("inputPlantTypeId") )
+			if( data.PLANT_TYPE_NAME != undefined ){
+				var name = "Type of Plant: " + data.PLANT_TYPE_NAME;
+				this.getView().byId("inputPlantTypeId").setValue( data.PLANT_TYPE_NAME );
+			} 
+			else{
+				this.getView().byId("inputPlantTypeId").destroy();
+			}
 	},
 
 /**

@@ -1,8 +1,10 @@
 sap.ui.controller("drone.view.SecondStep", {
 
-	toThirdStep : function(sKey) {
+	toThirdStep : function(sKey, sArea, sFinalColor) {
 		sap.ui.core.UIComponent.getRouterFor(this).navTo("third", {
 			observationkey : sKey,
+			area: sArea,
+			finalcolor: sFinalColor,
 		});
 	},
 
@@ -63,7 +65,7 @@ sap.ui.controller("drone.view.SecondStep", {
 				infoState : this.defineInfoState(data[i].PLANT_COLOR),
 				info : this.defineInfo(data[i].PLANT_COLOR),
 				icon : this.defineIcon(data[i].PLANT_COLOR),
-				press : $.proxy( this.toThirdStep,this, data[i].PLANT_OBSERVATION_ID)
+				press : $.proxy( this.toThirdStep,this, data[i].PLANT_OBSERVATION_ID, this.queryParams["area"], this.queryParams["finalcolor"])
 			}));
 		}
 		this.byId("allTilesPlant").setBusy(false);
