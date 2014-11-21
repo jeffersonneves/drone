@@ -112,7 +112,7 @@ sap.ui.controller("drone.view.ThirdStep", {
 		                      {Price: "*"}
 		                   ],
 		                   properties: {
-		                       width: 6
+		                       width: 15
 		                   }
 		                 }]
 		              }

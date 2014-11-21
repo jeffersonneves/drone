@@ -21,10 +21,13 @@ sap.ui.controller("drone.view.SecondStep", {
 	 * @memberOf view.SecondStep
 	 */
 	 onInit: function() {
+		 var that = this;
 		 sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(function (oEvent){
 		       var params = oEvent.getParameters();
 		                    
 		       this.queryParams = params.arguments;
+		       
+		       that.getData();
 		});
 	 },
 	/**
@@ -35,7 +38,9 @@ sap.ui.controller("drone.view.SecondStep", {
 	 * @memberOf view.SecondStep
 	 */
 	onBeforeRendering : function() {
-
+	},
+	
+	getData: function(){
 		var tiles = this.byId("allTilesPlant");
 
 		tiles.setBusy(true);
