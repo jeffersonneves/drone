@@ -125,13 +125,13 @@ sap.ui.controller("drone.view.SecondStep", {
 		switch (color) {
 
 		case "3":
-			info = "This Area is under Alert!";
+			info = "This plant is under Alert!";
 			break;
 		case "2":
-			info = "Handle this Area with caution.";
+			info = "Handle this Plant with caution.";
 			break;
 		default:
-			info = "This Area is Ok!";
+			info = "This Plant is Ok!";
 			break;
 		}
 

@@ -51,9 +51,9 @@ sap.ui.controller("drone.view.FirstStep", {
 		for (var i = 0; i < data.length; i++) {
 			this.byId("allTiles").addTile(new sap.m.StandardTile({
 				title : "Area " + data[i].AREA_ID,
-				infoState : this.defineInfoState(data[i].COLOR),
-				info : this.defineInfo(data[i].COLOR),
-				icon : this.defineIcon(data[i].COLOR),
+				infoState : this.defineInfoState(data[i].FINAL_COLOR),
+				info : this.defineInfo(data[i].FINAL_COLOR),
+				icon : this.defineIcon(data[i].FINAL_COLOR),
 				press : $.proxy(this.toSecondStep, this, data[i].AREA_ID, data[i].FINAL_COLOR)
 			}));
 		}
@@ -68,10 +68,10 @@ sap.ui.controller("drone.view.FirstStep", {
 
 		switch (color) {
 
-		case "3":
+		case 3:
 			infoState = "Error";
 			break;
-		case "2":
+		case 2:
 			infoState = "Warning";
 			break;
 		default:
@@ -88,10 +88,10 @@ sap.ui.controller("drone.view.FirstStep", {
 
 		switch (color) {
 
-		case "3":
+		case 3:
 			icon = "alert";
 			break;
-		case "2":
+		case 2:
 			icon = "notification";
 			break;
 		default:
@@ -108,10 +108,10 @@ sap.ui.controller("drone.view.FirstStep", {
 
 		switch (color) {
 
-		case "3":
+		case 3:
 			info = "This Area is under Alert!";
 			break;
-		case "2":
+		case 2:
 			info = "Handle this Area with caution.";
 			break;
 		default:
