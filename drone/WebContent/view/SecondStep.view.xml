@@ -4,10 +4,10 @@
 			xmlns:core="sap.ui.core"
 			xmlns:mvc="sap.ui.core.mvc"
 			xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="{i18n>TITLE}" showNavButton="true" navButtonPress="toFirstStep">
+	<Page title="{i18n>TITLE}" showNavButton="true" navButtonPress="toFirstStep" enableScrolling="false">
 		<content>
-			<Button text="To Third Step" press="toThirdStep" />
-			<TileContainer id="allTiles" />
+			<!-- <Button text="To Third Step" press="toThirdStep" /> -->
+			<TileContainer id="allTilesPlant" />
 		</content>
 		
 	</Page>

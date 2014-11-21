@@ -34,7 +34,7 @@ sap.ui.controller("drone.view.SecondStep", {
 	 */
 	onBeforeRendering : function() {
 
-		var tiles = this.byId("allTiles");
+		var tiles = this.byId("allTilesPlant");
 
 		tiles.setBusy(true);
 		tiles.destroyTiles();
@@ -58,7 +58,7 @@ sap.ui.controller("drone.view.SecondStep", {
 		var data = oData.results;
 
 		for (var i = 0; i < data.length; i++) {
-			this.byId("allTiles").addTile(new sap.m.StandardTile({
+			this.byId("allTilesPlant").addTile(new sap.m.StandardTile({
 				title : "Plant " + data[i].PLANTATION_ID,
 				infoState : this.defineInfoState(data[i].PLANT_COLOR),
 				info : this.defineInfo(data[i].PLANT_COLOR),
@@ -66,11 +66,11 @@ sap.ui.controller("drone.view.SecondStep", {
 				press : $.proxy( this.toThirdStep,this, data[i].PLANT_OBSERVATION_ID)
 			}));
 		}
-		this.byId("allTiles").setBusy(false);
+		this.byId("allTilesPlant").setBusy(false);
 	},
 
 	onDataReadError : function(oError) {
-		this.byId("allTiles").setBusy(false);
+		this.byId("allTilesPlant").setBusy(false);
 	},
 
 	defineInfoState : function(color) {
