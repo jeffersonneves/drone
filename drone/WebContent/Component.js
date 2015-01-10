@@ -15,7 +15,7 @@ sap.ui.core.UIComponent.extend("drone.Component", {
 			resourceBundle : "i18n/strbundle.properties",
 			serviceConfig : {
 				name : "DroneSvc",
-				serviceUrl : "/drone/services/odata/All_Views.xsodata"
+				serviceUrl : "/dronesvc/All_Views.xsodata"
 			}
 		},
 		routing : {
